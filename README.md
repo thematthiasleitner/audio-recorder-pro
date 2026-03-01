@@ -30,12 +30,10 @@ Mobile-friendly Obsidian plugin for fast local audio capture.
 
 ## Acknowledgements and inspirations
 
-This plugin family in the development vault took inspiration from existing Obsidian ecosystem work, especially:
+This plugin draws directly on existing Obsidian audio-recording workflows, especially:
 
 - `super-duper-audio-recorder` by Thiago MadPin (`madpin`) for audio-recorder UX direction.
 - Obsidian core `audio-recorder` workflows for baseline recording behavior.
-- `aloud-tts` by Adrian Lyjak and `transcription-audio` by cha-yh for end-to-end audio workflows.
-- `ai-providers` / `local-gpt` by Pavel Frankov for multi-provider configuration patterns used across companion plugins.
 
 Credit where due:
 
