@@ -1,0 +1,26 @@
+{
+  "name": "audio-recorder-pro",
+  "version": "0.1.0",
+  "description": "Obsidian plugin for fast audio recording on desktop and mobile.",
+  "main": "main.js",
+  "scripts": {
+    "dev": "node esbuild.config.mjs --dev",
+    "build": "node esbuild.config.mjs --prod",
+    "update:versions": "python3 scripts/update_obsidian_versions.py --manifest manifest.json --versions versions.json --record-every-release"
+  },
+  "keywords": [
+    "obsidian",
+    "plugin",
+    "audio",
+    "recording"
+  ],
+  "author": "Matthias",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^22.1.0",
+    "esbuild": "^0.21.5",
+    "obsidian": "^1.5.12",
+    "tslib": "^2.6.3",
+    "typescript": "^5.5.4"
+  }
+}

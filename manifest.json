@@ -1,0 +1,9 @@
+{
+  "id": "audio-recorder-pro",
+  "name": "Audio Recorder Pro",
+  "version": "0.1.0",
+  "minAppVersion": "1.5.0",
+  "description": "Mobile-friendly audio recording for Obsidian with timer, pause/resume, and lightweight format selection.",
+  "author": "Matthias",
+  "isDesktopOnly": false
+}
