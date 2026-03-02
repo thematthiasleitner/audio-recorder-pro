@@ -5,6 +5,7 @@
     "moduleResolution": "bundler",
     "lib": [
       "DOM",
+      "DOM.Iterable",
       "ES2020"
     ],
     "strict": true,
@@ -14,6 +15,7 @@
     "useDefineForClassFields": false,
     "moduleDetection": "force",
     "allowImportingTsExtensions": true,
+    "noEmit": true,
     "resolveJsonModule": true,
     "isolatedModules": true,
     "esModuleInterop": true,

@@ -92,7 +92,7 @@ var AudioRecorderProPlugin = class extends import_obsidian.Plugin {
       this.openRecorderModal(false);
     });
     this.addCommand({
-      id: "open-audio-recorder-pro",
+      id: "open",
       name: "Open recorder",
       callback: () => this.openRecorderModal(false)
     });
@@ -127,7 +127,7 @@ var AudioRecorderProPlugin = class extends import_obsidian.Plugin {
   }
   openRecorderModal(startImmediately) {
     if (this.recorderModal) {
-      new import_obsidian.Notice("Audio Recorder Pro is already open.");
+      new import_obsidian.Notice("The recorder is already open.");
       return;
     }
     const modal = new AudioRecorderModal(this.app, this, startImmediately);
@@ -679,7 +679,7 @@ var AudioRecorderModal = class extends import_obsidian.Modal {
       new import_obsidian.Notice(message);
     }
   }
-  async requestStop(mode) {
+  requestStop(mode) {
     if (!this.mediaRecorder || this.state !== "recording" && this.state !== "paused") {
       return;
     }
@@ -803,7 +803,7 @@ var AudioRecorderModal = class extends import_obsidian.Modal {
       return;
     }
     if (this.plugin.settings.preferredFormat === "auto") {
-      this.formatEl.textContent = "Preferred format: Auto";
+      this.formatEl.textContent = "Preferred format: auto";
       return;
     }
     const preferred = AUDIO_FORMAT_BY_ID[this.plugin.settings.preferredFormat];
@@ -860,9 +860,9 @@ var AudioRecorderProSettingTab = class extends import_obsidian.PluginSettingTab 
   display() {
     const { containerEl } = this;
     containerEl.empty();
-    containerEl.createEl("h2", { text: "Audio Recorder Pro settings" });
+    new import_obsidian.Setting(containerEl).setName("Audio Recorder Pro").setHeading();
     new import_obsidian.Setting(containerEl).setName("Save folder").setDesc("Vault folder for recorded audio files. Nested folders are created automatically.").addText((text) => {
-      text.setPlaceholder("Attachments/Recordings");
+      text.setPlaceholder("Attachments/recordings");
       text.setValue(this.plugin.settings.saveFolder);
       text.onChange(async (value) => {
         this.plugin.settings.saveFolder = normalizeFolderPath(value || DEFAULT_SETTINGS.saveFolder);
@@ -870,7 +870,7 @@ var AudioRecorderProSettingTab = class extends import_obsidian.PluginSettingTab 
       });
     });
     new import_obsidian.Setting(containerEl).setName("File name prefix").setDesc("Prefix used before the timestamp in each recording file name.").addText((text) => {
-      text.setPlaceholder("recording");
+      text.setPlaceholder("Recording");
       text.setValue(this.plugin.settings.fileNamePrefix);
       text.onChange(async (value) => {
         this.plugin.settings.fileNamePrefix = sanitizeFileNamePart(value);
@@ -878,7 +878,7 @@ var AudioRecorderProSettingTab = class extends import_obsidian.PluginSettingTab 
       });
     });
     new import_obsidian.Setting(containerEl).setName("Preferred lightweight audio type").setDesc(
-      "Choose a lightweight format. If the current device does not support it, Audio Recorder Pro falls back automatically."
+      "Choose a lightweight format. If the device does not support it, the plugin falls back automatically."
     ).addDropdown((dropdown) => {
       dropdown.addOption("auto", "Auto (recommended)");
       for (const format of AUDIO_FORMAT_DEFINITIONS) {
@@ -983,7 +983,7 @@ function normalizeFolderPath(value) {
   return (0, import_obsidian.normalizePath)(trimmed);
 }
 function sanitizeFileNamePart(value) {
-  const cleaned = value.trim().replace(/[<>:"/\\|?*\u0000-\u001F]/g, "-").replace(/\s+/g, "-").replace(/-+/g, "-").replace(/^-|-$/g, "");
+  const cleaned = value.trim().replace(/[\p{Cc}<>:"/\\|?*]/gu, "-").replace(/\s+/g, "-").replace(/-+/g, "-").replace(/^-|-$/g, "");
   return cleaned || "recording";
 }
 function sanitizeExtension(value) {

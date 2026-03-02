@@ -112,7 +112,7 @@ export default class AudioRecorderProPlugin extends Plugin {
     });
 
     this.addCommand({
-      id: "open-audio-recorder-pro",
+      id: "open",
       name: "Open recorder",
       callback: () => this.openRecorderModal(false),
     });
@@ -155,7 +155,7 @@ export default class AudioRecorderProPlugin extends Plugin {
 
   openRecorderModal(startImmediately: boolean): void {
     if (this.recorderModal) {
-      new Notice("Audio Recorder Pro is already open.");
+      new Notice("The recorder is already open.");
       return;
     }
 
@@ -839,7 +839,7 @@ class AudioRecorderModal extends Modal {
     }
   }
 
-  private async requestStop(mode: StopMode): Promise<void> {
+  private requestStop(mode: StopMode): void {
     if (!this.mediaRecorder || (this.state !== "recording" && this.state !== "paused")) {
       return;
     }
@@ -985,7 +985,7 @@ class AudioRecorderModal extends Modal {
     }
 
     if (this.plugin.settings.preferredFormat === "auto") {
-      this.formatEl.textContent = "Preferred format: Auto";
+      this.formatEl.textContent = "Preferred format: auto";
       return;
     }
 
@@ -1067,13 +1067,13 @@ class AudioRecorderProSettingTab extends PluginSettingTab {
     const { containerEl } = this;
     containerEl.empty();
 
-    containerEl.createEl("h2", { text: "Audio Recorder Pro settings" });
+    new Setting(containerEl).setName("Audio Recorder Pro").setHeading();
 
     new Setting(containerEl)
       .setName("Save folder")
       .setDesc("Vault folder for recorded audio files. Nested folders are created automatically.")
       .addText((text) => {
-        text.setPlaceholder("Attachments/Recordings");
+        text.setPlaceholder("Attachments/recordings");
         text.setValue(this.plugin.settings.saveFolder);
         text.onChange(async (value) => {
           this.plugin.settings.saveFolder = normalizeFolderPath(value || DEFAULT_SETTINGS.saveFolder);
@@ -1085,7 +1085,7 @@ class AudioRecorderProSettingTab extends PluginSettingTab {
       .setName("File name prefix")
       .setDesc("Prefix used before the timestamp in each recording file name.")
       .addText((text) => {
-        text.setPlaceholder("recording");
+        text.setPlaceholder("Recording");
         text.setValue(this.plugin.settings.fileNamePrefix);
         text.onChange(async (value) => {
           this.plugin.settings.fileNamePrefix = sanitizeFileNamePart(value);
@@ -1096,7 +1096,7 @@ class AudioRecorderProSettingTab extends PluginSettingTab {
     new Setting(containerEl)
       .setName("Preferred lightweight audio type")
       .setDesc(
-        "Choose a lightweight format. If the current device does not support it, Audio Recorder Pro falls back automatically.",
+        "Choose a lightweight format. If the device does not support it, the plugin falls back automatically.",
       )
       .addDropdown((dropdown) => {
         dropdown.addOption("auto", "Auto (recommended)");
@@ -1239,7 +1239,7 @@ function normalizeFolderPath(value: string): string {
 function sanitizeFileNamePart(value: string): string {
   const cleaned = value
     .trim()
-    .replace(/[<>:"/\\|?*\u0000-\u001F]/g, "-")
+    .replace(/[\p{Cc}<>:"/\\|?*]/gu, "-")
     .replace(/\s+/g, "-")
     .replace(/-+/g, "-")
     .replace(/^-|-$/g, "");
