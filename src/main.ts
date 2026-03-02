@@ -107,7 +107,7 @@ export default class AudioRecorderProPlugin extends Plugin {
   async onload(): Promise<void> {
     await this.loadSettings();
 
-    this.addRibbonIcon("mic", "Open Audio Recorder Pro", () => {
+    this.addRibbonIcon("mic", "Open recorder", () => {
       this.openRecorderModal(false);
     });
 

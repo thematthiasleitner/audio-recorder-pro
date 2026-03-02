@@ -88,7 +88,7 @@ var AudioRecorderProPlugin = class extends import_obsidian.Plugin {
   }
   async onload() {
     await this.loadSettings();
-    this.addRibbonIcon("mic", "Open Audio Recorder Pro", () => {
+    this.addRibbonIcon("mic", "Open recorder", () => {
       this.openRecorderModal(false);
     });
     this.addCommand({

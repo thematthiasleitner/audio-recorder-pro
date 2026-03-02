@@ -5,5 +5,6 @@
   "minAppVersion": "1.5.0",
   "description": "Mobile-friendly audio recording for Obsidian with timer, pause/resume, and lightweight format selection.",
   "author": "Matthias",
+  "authorUrl": "https://github.com/thematthiasleitner",
   "isDesktopOnly": false
 }
