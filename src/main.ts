@@ -1067,8 +1067,6 @@ class AudioRecorderProSettingTab extends PluginSettingTab {
     const { containerEl } = this;
     containerEl.empty();
 
-    new Setting(containerEl).setName("Audio Recorder Pro").setHeading();
-
     new Setting(containerEl)
       .setName("Save folder")
       .setDesc("Vault folder for recorded audio files. Nested folders are created automatically.")

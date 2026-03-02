@@ -860,7 +860,6 @@ var AudioRecorderProSettingTab = class extends import_obsidian.PluginSettingTab 
   display() {
     const { containerEl } = this;
     containerEl.empty();
-    new import_obsidian.Setting(containerEl).setName("Audio Recorder Pro").setHeading();
     new import_obsidian.Setting(containerEl).setName("Save folder").setDesc("Vault folder for recorded audio files. Nested folders are created automatically.").addText((text) => {
       text.setPlaceholder("Attachments/recordings");
       text.setValue(this.plugin.settings.saveFolder);
